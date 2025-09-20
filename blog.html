@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- #UPDATE: Set a title for your writing archive -->
+    <title>Writing — Your Name</title>
+    <!-- #UPDATE: Customize the archive description for search and sharing -->
+    <meta name="description" content="A clean archive for long-form writing." />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="bg-body-tertiary text-body">
+    <header class="navbar navbar-expand-md navbar-light bg-white border-bottom sticky-top">
+      <div class="container">
+        <!-- #UPDATE: Replace with your preferred site name -->
+        <a class="navbar-brand text-uppercase small fw-semibold letter-spacing-sm" href="index.html">Your Name</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#primaryNav"
+          aria-controls="primaryNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="primaryNav">
+          <!-- #UPDATE: Adjust navigation labels or anchors to match your sections -->
+          <nav class="ms-auto" aria-label="Primary">
+            <ul class="navbar-nav small text-uppercase gap-2">
+              <li class="nav-item"><a class="nav-link" href="index.html#about">About</a></li>
+              <li class="nav-item"><a class="nav-link" href="index.html#work">Work</a></li>
+              <li class="nav-item"><a class="nav-link active" aria-current="page" href="blog.html">Writing</a></li>
+              <li class="nav-item"><a class="nav-link" href="index.html#contact">Contact</a></li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <main class="pb-5">
+      <!-- #UPDATE: Introduce your archive and what readers will find -->
+      <section class="py-5 border-bottom bg-white">
+        <div class="container col-lg-8">
+          <p class="text-uppercase text-secondary small fw-semibold letter-spacing-wide mb-3">Essays &amp; notes</p>
+          <h1 class="fw-bold mb-3">Writing archive</h1>
+          <p class="lead mb-0">
+            Use this space to collect your most impactful essays, updates, and speaking notes. Everything is kept legible on
+            any device with a centered, single-column reading experience inspired by Sam Altman’s Posthaven template.
+          </p>
+        </div>
+      </section>
+
+      <!-- #UPDATE: Add, remove, or reorder posts to match your archive -->
+      <section class="py-5">
+        <div class="container col-lg-8">
+          <div class="list-group list-group-flush border-top">
+            <article class="list-group-item px-0 py-4 border-bottom">
+              <p class="text-secondary small mb-2">June 12, 2024 · 7 min read</p>
+              <!-- #UPDATE: Article title and summary -->
+              <h2 class="h4 fw-semibold mb-2"><a class="text-reset stretched-link" href="post.html">Building with deliberate speed</a></h2>
+              <p class="mb-0">Five operating principles that keep teams shipping quality work without burning out.</p>
+            </article>
+            <article class="list-group-item px-0 py-4 border-bottom">
+              <p class="text-secondary small mb-2">May 3, 2024 · 5 min read</p>
+              <!-- #UPDATE: Article title and summary -->
+              <h2 class="h4 fw-semibold mb-2"><a class="text-reset stretched-link" href="post.html">What I look for when investing</a></h2>
+              <p class="mb-0">Lessons from partnering with founders across product, AI, and marketplaces.</p>
+            </article>
+            <article class="list-group-item px-0 py-4 border-bottom">
+              <p class="text-secondary small mb-2">April 18, 2024 · 3 min read</p>
+              <!-- #UPDATE: Article title and summary -->
+              <h2 class="h4 fw-semibold mb-2"><a class="text-reset stretched-link" href="post.html">Staying close to the problem</a></h2>
+              <p class="mb-0">Why spending time with customers beats any roadmap template.</p>
+            </article>
+            <article class="list-group-item px-0 py-4 border-bottom">
+              <p class="text-secondary small mb-2">March 2, 2024 · 4 min read</p>
+              <!-- #UPDATE: Article title and summary -->
+              <h2 class="h4 fw-semibold mb-2"><a class="text-reset stretched-link" href="post.html">The questions I ask during product reviews</a></h2>
+              <p class="mb-0">A repeatable agenda that keeps reviews focused and constructive.</p>
+            </article>
+            <article class="list-group-item px-0 py-4">
+              <p class="text-secondary small mb-2">January 15, 2024 · 6 min read</p>
+              <!-- #UPDATE: Article title and summary -->
+              <h2 class="h4 fw-semibold mb-2"><a class="text-reset stretched-link" href="post.html">Starting over with intention</a></h2>
+              <p class="mb-0">How I plan the first 90 days whenever I join or back a new team.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="py-4 border-top bg-body-tertiary">
+      <div class="container text-center text-md-start">
+        <p class="mb-0 small text-secondary">© <span id="year"></span> Your Name. Crafted with intention.</p>
+      </div>
+    </footer>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      const year = new Date().getFullYear();
+      document.getElementById("year").textContent = year;
+    </script>
+  </body>
+</html>
