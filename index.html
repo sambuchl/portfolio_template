@@ -22,7 +22,10 @@
       <header class="navbar navbar-expand-md bg-white border-bottom sticky-top shadow-sm">
         <div class="container">
           <!-- #UPDATE: Adjust the site name and navigation labels in content.js -->
-          <a class="navbar-brand text-uppercase small fw-semibold letter-spacing-sm" :href="navigation.brand.href || "#about"">
+          <a
+            class="navbar-brand text-uppercase small fw-semibold letter-spacing-sm"
+            :href="navigation.brand.href || '#about'"
+          >
             {{ navigation.brand.label }}
           </a>
           <button

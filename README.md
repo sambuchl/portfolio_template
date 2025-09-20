@@ -6,14 +6,14 @@ This repo now ships as a tiny single-page app inspired by the calm typography of
 
 - **`index.html`** – the only page you need. It wires Bootstrap, Vue, and the renderer, then hands off the layout to data-driven templates.
 - **`content.js`** – all editable text, links, and lists live here. Each field has a `// #UPDATE` note so first-time site builders know exactly what to change.
-- **`app.js`** – a 60-line Vue instance that loads `content.js`, syncs the browser hash for post views, and updates the document metadata.
+- **`app.js`** – a lean Vue instance that loads `content.js`, sorts posts so the newest appears first, syncs the browser hash for post views, and updates the document metadata.
 - **`styles.css`** – light visual polish on top of Bootstrap to preserve the Posthaven-inspired rhythm.
 
 ## Editing your site
 
 1. Open **`content.js`** and follow the `#UPDATE` comments to swap in your own name, bio, projects, posts, and contact info.
 2. Add or remove highlight cards by editing the `highlights.items` array. Each entry supports an optional link.
-3. Manage essays in the `writing.posts` array. Include a unique `slug` for each post so the single-page router can load it at `#post/your-slug`.
+3. Manage essays in the `writing.posts` array. Include a unique `slug` for each post so the single-page router can load it at `#post/your-slug`. Posts are automatically shown from newest to oldest using their `date` value.
 4. Adjust colors, typography, or spacing by tweaking the CSS custom properties at the top of **`styles.css`**.
 
 The Vue app automatically updates the `<title>` tag and meta description using the values you set in `content.js`, so you only change them once.

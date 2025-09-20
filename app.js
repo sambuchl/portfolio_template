@@ -1,4 +1,5 @@
 (function () {
+  'use strict';
   const content = window.SITE_CONTENT || {};
   const { createApp } = Vue;
 
@@ -19,6 +20,14 @@
     if (Array.isArray(value)) return value;
     if (value === null || value === undefined) return [];
     return [value];
+  }
+
+  function parseDateToTimestamp(dateString) {
+    if (!dateString) {
+      return null;
+    }
+    const timestamp = Date.parse(dateString);
+    return Number.isNaN(timestamp) ? null : timestamp;
   }
 
   const app = createApp({
@@ -98,15 +107,43 @@
         if (!this.writing.archive || !this.writing.archive.href) {
           this.writing.archive = null;
         }
-        const posts = ensureArray(this.writing.posts).filter((post) => post && post.slug);
-        this.writing.posts = posts.map((post) => ({
-          ...post,
-          body: ensureArray(post.body).filter((paragraph) => typeof paragraph === 'string' && paragraph.trim().length),
-          links: (() => {
+        const normalizedPosts = ensureArray(this.writing.posts)
+          .filter((post) => post && post.slug)
+          .map((post, index) => {
+            const body = ensureArray(post.body).filter(
+              (paragraph) => typeof paragraph === 'string' && paragraph.trim().length,
+            );
             const links = ensureArray(post.links).filter((link) => link && (link.href || link.label));
-            return links.length ? links : null;
-          })(),
-        }));
+            return {
+              data: {
+                ...post,
+                body,
+                links: links.length ? links : null,
+              },
+              timestamp: parseDateToTimestamp(post.date),
+              index,
+            };
+          });
+
+        normalizedPosts.sort((a, b) => {
+          const hasATime = a.timestamp !== null;
+          const hasBTime = b.timestamp !== null;
+          if (hasATime && hasBTime) {
+            if (a.timestamp === b.timestamp) {
+              return a.index - b.index;
+            }
+            return b.timestamp - a.timestamp;
+          }
+          if (hasATime) {
+            return -1;
+          }
+          if (hasBTime) {
+            return 1;
+          }
+          return a.index - b.index;
+        });
+
+        this.writing.posts = normalizedPosts.map((entry) => entry.data);
       }
       if (this.contact) {
         this.contact.socials = ensureArray(this.contact.socials).filter((item) => item && (item.href || item.label));
