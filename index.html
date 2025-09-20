@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- #UPDATE: The title and description are synced with content.js -->
+    <title>Minimal Portfolio</title>
+    <meta
+      name="description"
+      content="A single-page, mobile-friendly portfolio and blog template."
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="bg-body-tertiary text-body">
+    <div id="app" v-cloak>
+      <header class="navbar navbar-expand-md bg-white border-bottom sticky-top shadow-sm">
+        <div class="container">
+          <!-- #UPDATE: Adjust the site name and navigation labels in content.js -->
+          <a
+            class="navbar-brand text-uppercase small fw-semibold letter-spacing-sm"
+            :href="navigation.brand.href || '#about'"
+          >
+            {{ navigation.brand.label }}
+          </a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#primaryNav"
+            aria-controls="primaryNav"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="primaryNav">
+            <nav class="ms-auto" aria-label="Primary navigation">
+              <ul class="navbar-nav small text-uppercase gap-2">
+                <li class="nav-item" v-for="item in navigation.items" :key="item.target">
+                  <a class="nav-link" :href="item.href || item.target">{{ item.label }}</a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </header>
+
+      <main>
+        <section id="about" class="py-5 py-lg-6">
+          <div class="container col-lg-8">
+            <!-- #UPDATE: Edit the hero intro, headline, and lead copy in content.js -->
+            <p class="text-uppercase text-secondary small fw-semibold letter-spacing-wide mb-3">
+              {{ hero.kicker }}
+            </p>
+            <h1 class="display-5 fw-bold mb-3">{{ hero.heading }}</h1>
+            <p class="lead mb-4" v-for="(paragraph, index) in hero.summary" :key="index">
+              {{ paragraph }}
+            </p>
+            <div class="d-flex flex-column flex-sm-row gap-3">
+              <a
+                v-if="hero.primaryAction"
+                class="btn btn-dark rounded-pill px-4"
+                :href="hero.primaryAction.href"
+              >
+                {{ hero.primaryAction.label }}
+              </a>
+              <a
+                v-if="hero.secondaryAction"
+                class="link-offset-2 link-underline-opacity-25 link-underline-opacity-75-hover"
+                :href="hero.secondaryAction.href"
+              >
+                {{ hero.secondaryAction.label }}
+              </a>
+            </div>
+          </div>
+        </section>
+
+        <section id="work" class="py-5 border-top bg-white">
+          <div class="container col-lg-10">
+            <div class="row align-items-end mb-4">
+              <div class="col-lg-8">
+                <!-- #UPDATE: Swap out the work section title and blurb in content.js -->
+                <h2 class="fw-bold mb-2">{{ highlights.heading }}</h2>
+                <p class="text-secondary mb-0">{{ highlights.subheading }}</p>
+              </div>
+              <div class="col-lg-4 text-lg-end" v-if="highlights.cta">
+                <a
+                  class="link-offset-2 link-underline-opacity-25 link-underline-opacity-75-hover"
+                  :href="highlights.cta.href"
+                >
+                  {{ highlights.cta.label }}
+                </a>
+              </div>
+            </div>
+            <div class="row row-cols-1 row-cols-lg-3 g-4">
+              <div class="col" v-for="item in highlights.items" :key="item.title">
+                <article class="card h-100 shadow-sm border-0">
+                  <div class="card-body">
+                    <p class="text-uppercase text-secondary small letter-spacing-wide mb-2" v-if="item.year">
+                      {{ item.year }}
+                    </p>
+                    <h3 class="h4 fw-semibold">{{ item.title }}</h3>
+                    <p class="mb-3">{{ item.description }}</p>
+                    <a
+                      v-if="item.link"
+                      class="link-offset-2 link-underline-opacity-25 link-underline-opacity-75-hover"
+                      :href="item.link.href"
+                    >
+                      {{ item.link.label }}
+                    </a>
+                  </div>
+                </article>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="writing" class="py-5">
+          <div class="container col-lg-8">
+            <div class="d-flex flex-column flex-lg-row align-items-lg-end justify-content-lg-between mb-4">
+              <div>
+                <!-- #UPDATE: Change the writing header and description in content.js -->
+                <h2 class="fw-bold mb-2" id="writing-heading">{{ writing.heading }}</h2>
+                <p class="text-secondary mb-0">{{ writing.subheading }}</p>
+              </div>
+              <a
+                v-if="writing.archive"
+                class="mt-3 mt-lg-0 link-offset-2 link-underline-opacity-25 link-underline-opacity-75-hover"
+                :href="writing.archive.href"
+              >
+                {{ writing.archive.label }}
+              </a>
+            </div>
+
+            <div v-if="!activePost" class="vstack gap-4" aria-labelledby="writing-heading">
+              <p v-if="!writing.posts.length" class="text-secondary small">Add your first essay by editing <code>content.js</code> and giving it a unique slug.</p>
+              <article
+                class="border-bottom pb-4"
+                v-for="post in writing.posts"
+                :key="post.slug"
+              >
+                <p class="text-secondary small mb-2">
+                  {{ post.date }}<span v-if="post.readingTime"> · {{ post.readingTime }}</span>
+                </p>
+                <h3 class="h4 fw-semibold mb-2">
+                  <a
+                    class="stretched-link text-reset"
+                    :href="`#post/${post.slug}`"
+                    @click.prevent="openPost(post.slug)"
+                  >
+                    {{ post.title }}
+                  </a>
+                </h3>
+                <p class="mb-0">{{ post.summary }}</p>
+              </article>
+            </div>
+
+            <article v-else class="writing-detail">
+              <button
+                type="button"
+                class="btn btn-link px-0 mb-3"
+                @click="closePost"
+              >
+                ← {{ writing.backLabel || 'Back to writing' }}
+              </button>
+              <p class="text-secondary small mb-2">
+                {{ activePost.date }}<span v-if="activePost.readingTime"> · {{ activePost.readingTime }}</span>
+              </p>
+              <h2 class="h3 fw-semibold mb-3">{{ activePost.title }}</h2>
+              <p class="lead mb-4" v-if="activePost.summary">{{ activePost.summary }}</p>
+              <div class="article-body">
+                <p v-for="(paragraph, idx) in activePost.body" :key="idx" class="mb-4">
+                  {{ paragraph }}
+                </p>
+              </div>
+              <div class="d-flex flex-column gap-2 mt-4" v-if="activePost.links">
+                <a
+                  v-for="link in activePost.links"
+                  :key="link.href"
+                  class="link-offset-2 link-underline-opacity-25 link-underline-opacity-75-hover"
+                  :href="link.href"
+                >
+                  {{ link.label }}
+                </a>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section id="contact" class="py-5 border-top bg-white">
+          <div class="container col-lg-6 text-center text-lg-start">
+            <!-- #UPDATE: Refresh the contact headline, copy, and links in content.js -->
+            <h2 class="fw-bold mb-3">{{ contact.heading }}</h2>
+            <p class="mb-4">{{ contact.description }}</p>
+            <div class="d-flex flex-column flex-lg-row gap-3 align-items-lg-center">
+              <a
+                v-if="contact.primaryAction"
+                class="btn btn-dark rounded-pill px-4"
+                :href="contact.primaryAction.href"
+              >
+                {{ contact.primaryAction.label }}
+              </a>
+              <ul class="list-inline mb-0" v-if="contact.socials && contact.socials.length">
+                <li class="list-inline-item" v-for="social in contact.socials" :key="social.href">
+                  <a class="link-offset-2 link-underline-opacity-25 link-underline-opacity-75-hover" :href="social.href">
+                    {{ social.label }}
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer class="py-4 text-center text-secondary small">
+        <!-- #UPDATE: Customize the footer note in content.js -->
+        <p class="mb-0">{{ footer.note }}</p>
+      </footer>
+    </div>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+      defer
+    ></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js" defer></script>
+    <script src="content.js" defer></script>
+    <script src="app.js" defer></script>
+  </body>
+</html>
