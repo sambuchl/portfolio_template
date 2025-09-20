@@ -1,28 +1,41 @@
-# Minimalist portfolio & blog template
+# Minimalist single-page portfolio & blog template
 
-A lightweight, mobile-first portfolio inspired by the calm typography and centered column layout of Sam Altman’s Posthaven blog. It now pairs Bootstrap 5 utilities with a tiny layer of custom CSS so you can tweak spacing and typography without rebuilding the design system.
+This repo now ships as a tiny single-page app inspired by the calm typography of Sam Altman’s Posthaven blog. The layout leans on Bootstrap 5 for spacing and grid helpers, while Vue keeps the HTML tidy by rendering all copy from one central content file.
 
 ## What’s inside
 
-- **`index.html`** – landing page with an intro, selected work highlights, recent writing, and a contact call-to-action.
-- **`blog.html`** – archive view for essays and updates with a narrow reading column.
-- **`post.html`** – sample long-form article page using the same minimal typography.
-- **`styles.css`** – light overrides that sit on top of Bootstrap for letter spacing, article rhythm, and accent styling.
+- **`index.html`** – the only page you need. It wires Bootstrap, Vue, and the renderer, then hands off the layout to data-driven templates.
+- **`content.js`** – all editable text, links, and lists live here. Each field has a `// #UPDATE` note so first-time site builders know exactly what to change.
+- **`app.js`** – a 60-line Vue instance that loads `content.js`, syncs the browser hash for post views, and updates the document metadata.
+- **`styles.css`** – light visual polish on top of Bootstrap to preserve the Posthaven-inspired rhythm.
 
-All content blocks include `<!-- #UPDATE: ... -->` comments (hidden from the UI) so you can quickly spot which text, links, or metadata to personalize.
+## Editing your site
 
-## Getting started
+1. Open **`content.js`** and follow the `#UPDATE` comments to swap in your own name, bio, projects, posts, and contact info.
+2. Add or remove highlight cards by editing the `highlights.items` array. Each entry supports an optional link.
+3. Manage essays in the `writing.posts` array. Include a unique `slug` for each post so the single-page router can load it at `#post/your-slug`.
+4. Adjust colors, typography, or spacing by tweaking the CSS custom properties at the top of **`styles.css`**.
 
-1. Search for `#UPDATE` in the HTML files and replace the placeholder copy (site title, hero text, projects, posts, contact links) with your own content.
-2. Update the `mailto:` links and the Formspree action in `index.html`, or swap the form for your preferred tool.
-3. Customize colors, fonts, or spacing by editing the CSS custom properties and utility helpers near the top of `styles.css`.
-4. Drop the files onto any static host (GitHub Pages, Vercel, Netlify, etc.) or integrate them into your existing site.
+The Vue app automatically updates the `<title>` tag and meta description using the values you set in `content.js`, so you only change them once.
 
-### Working with Bootstrap
+## Previewing locally
 
-- Bootstrap’s CDN links are already included in each HTML file; add additional components using standard Bootstrap markup when needed.
-- The template leans on Bootstrap’s grid, spacing, and typography classes. Custom helpers such as `.letter-spacing-wide`, `.py-lg-6`, and `.post-content` keep Posthaven’s restrained feel.
-- Because Bootstrap handles most layout, you can safely delete sections or add new ones without touching the core CSS.
+Because everything runs client-side, you can open `index.html` directly in a browser. For hash-based navigation (`#post/slug`) to work consistently, serve the folder through any static server:
+
+```bash
+python -m http.server 8000
+```
+
+Then visit [http://localhost:8000](http://localhost:8000) and click around.
+
+## Deploying
+
+Commit your edits to GitHub and enable GitHub Pages, Netlify, Vercel, or any static host. No build step is required; upload the four files as-is.
+
+## Included libraries
+
+- [Bootstrap 5](https://getbootstrap.com/) via CDN for grid, typography, and component utilities.
+- [Vue 3](https://vuejs.org/) via CDN for declarative templates and simple state handling.
 
 ## License
 
